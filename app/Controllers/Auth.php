@@ -101,22 +101,11 @@ public function register()
         $db->table('employers')->insert($employerData);
     }
 
-    // ✅ Create session
-    $session = session();
-    $session->set([
-        'user_id'    => $user_id,
-        'role'       => $role,
-        'full_name'  => $userData['full_name'],
-        'isLoggedIn' => true,
-    ]);
-
-    // Redirect by role
-    if ($role === 'employer') {
-        return redirect()->to(site_url('boss_dashboard'));
-    } else {
-        return redirect()->to(site_url('emp_dashboard'));
-    }
+    // ✅ Instead of auto-login, show a success message and redirect to login page
+    return redirect()->to(site_url('login'))
+                     ->with('success', 'Account created successfully! Please log in to continue.');
 }
+
 
 
     // ✅ EMPLOYER DASHBOARD

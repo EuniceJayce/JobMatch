@@ -22,10 +22,12 @@ class SubmitApplication extends Controller
             ]);
         }
 
-        if (session()->get('role') !== 'employee') {
-            return redirect()->back()->with('error', 'Only employees can apply for jobs.');
+        if ($session->get('role') !== 'job_seeker') {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Only employees can apply for jobs.'
+            ]);
         }
-
 
         $job_id = $request->getPost('job_id');
         $cover_letter = $request->getPost('cover_letter');
@@ -57,7 +59,14 @@ class SubmitApplication extends Controller
 
         if ($resumeFile && $resumeFile->isValid() && !$resumeFile->hasMoved()) {
             $resumeName = $resumeFile->getRandomName();
-            $resumeFile->move(FCPATH . 'uploads/resumes', $resumeName);
+
+            // Make sure folder exists
+            $uploadPath = FCPATH . 'uploads/resumes';
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            $resumeFile->move($uploadPath, $resumeName);
         } else {
             return $this->response->setJSON([
                 'success' => false,
@@ -71,14 +80,22 @@ class SubmitApplication extends Controller
             'applicant_id' => $applicant_id,
             'cover_letter' => $cover_letter,
             'resume' => $resumeName,
+            'status' => 'Pending',
+            'date_applied' => date('Y-m-d H:i:s')
         ];
 
-        $model->insert($data);
-
-        return $this->response->setJSON([
-            'success' => true,
-            'message' => 'Application submitted successfully!',
-            'job_id' => $job_id
-        ]);
+        try {
+            $model->insert($data);
+            return $this->response->setJSON([
+                'success' => true,
+                'message' => 'Application submitted successfully!',
+                'job_id' => $job_id
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error inserting: ' . $e->getMessage()
+            ]);
+        }
     }
 }
