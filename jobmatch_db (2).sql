@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2025 at 07:10 AM
+-- Generation Time: Nov 02, 2025 at 03:31 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,7 +83,8 @@ CREATE TABLE `employers` (
 INSERT INTO `employers` (`id`, `user_id`, `company_name`, `industry`, `contact_no`, `website`, `profile_image`) VALUES
 (1, 3, 'Japan International Fashion', 'Fashion', '09123456789', 'https://asianwiki.com/Kento_Yamazaki', 'uploads/1761490012_c5f66b0d-c914-4a44-85ce-ccf9fc056831.jpg'),
 (2, 1, 'Wowie International Airport', 'Aircrafts', '09123456455', 'https://dct.edu.ph/', 'uploads/profile_pictures/1761971355_0603b66a7af6ff0bec05.jpg'),
-(3, 9, 'Mierae International Fashion', 'Fashion', '09123456789', NULL, NULL);
+(3, 9, 'Mierae International Fashion', 'Fashion', '09123456789', NULL, NULL),
+(4, 14, 'Japan International Fashion', 'Fashion', '09123456789', 'https://dct.edu.ph/', 'uploads/profile_pictures/1762050013_6144bbf63cd0d15d64b9.jpg');
 
 -- --------------------------------------------------------
 
@@ -131,10 +132,8 @@ INSERT INTO `job_applications` (`id`, `job_id`, `applicant_id`, `resume`, `cover
 (19, 7, 3, '1761815568_ae1ab83c686abaeea1e7.docx', 'asdasd', 'pending', '2025-10-30 17:12:48', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
 (20, 6, 3, '1761815579_a1738077a2f212b9c1e1.docx', 'asdasd', 'pending', '2025-10-30 17:12:59', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
 (21, 3, 3, '1761815585_0a6c800982d3ac42a620.docx', 'asdasd', 'pending', '2025-10-30 17:13:05', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
-(25, 7, 6, '1761818036_52484a550e936fe7e4c4.docx', 'asdasd', 'pending', '2025-10-30 17:53:56', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
-(26, 6, 6, '1761818429_5e6d38c70cf4dad4ea7d.docx', 'asdasd', 'hired', '2025-10-30 18:00:29', '2025-10-31 00:16:23', '2025-11-01 13:33:12'),
 (27, 7, 10, '1761819839_e82709221bfc561b6398.docx', 'hey so can we uhm', 'hired', '2025-10-30 18:23:59', '2025-10-31 00:16:23', '2025-11-01 01:12:34'),
-(32, 12, 4, '1761839905_6fe8febfa49a3ac719d0.docx', 'hey', 'pending', '2025-10-30 23:58:25', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
+(32, 12, 4, '1761839905_6fe8febfa49a3ac719d0.docx', 'hey', 'hired', '2025-10-30 23:58:25', '2025-10-31 00:16:23', '2025-11-02 10:30:05'),
 (33, 14, 4, '1761840156_4637f4f04c5947e56448.docx', 'hey hey', 'pending', '2025-10-31 00:02:36', '2025-10-31 00:16:23', '2025-10-31 00:16:23'),
 (34, 13, 4, '1761840270_3f2b50c9c4ffaa64162c.docx', 'wow', 'rejected', '2025-10-31 00:04:30', '2025-10-31 00:16:23', '2025-10-31 00:53:02'),
 (35, 16, 4, '1761841032_dd8d5f822b8b4b973fed.docx', 'asdasd', 'pending', '2025-10-31 00:17:12', '2025-10-31 00:17:12', '2025-10-31 00:17:12'),
@@ -165,13 +164,15 @@ CREATE TABLE `job_posts` (
 
 INSERT INTO `job_posts` (`id`, `employer_id`, `title`, `job_type`, `company_name`, `description`, `requirements`, `work_type`, `date_posted`, `salary_range`) VALUES
 (3, 3, 'Magtataho', 'Full-Time', '', 'dapat pogi', NULL, NULL, '2025-10-28 15:59:10', '10'),
-(6, 1, 'Designer', 'Part-Time', 'Jocki International Fashion', 'wow wow wow', NULL, NULL, '2025-10-28 22:04:17', '200000'),
+(6, 1, 'Designer', 'Part-Time', 'Wowie International Airport ', 'wow wow wow', NULL, NULL, '2025-10-28 22:04:17', '200000'),
 (7, 1, 'Software Engineerneer', 'Full-Time', 'Wowie International Airport', 'Bachelor’s degree in Computer Science, Information Technology, or related field\r\n\r\nAt least 2 years of experience in web development\r\n\r\nProficient in HTML, CSS, JavaScript, and PHP\r\n\r\nKnowledge of database systems such as MySQL\r\n\r\nStrong problem-solving and communication skills\r\n\r\nAbility to work independently and meet deadlines\r\n\r\nAttention to detail and willingness to learn new technologies', NULL, NULL, '2025-10-29 00:00:54', '200000 - 400000'),
-(12, 1, 'Willie Dancer', 'Gig', '', 'sayw lang', NULL, NULL, '2025-10-30 15:57:55', '10'),
-(13, 1, 'Dancer sa The Voice Kid', 'Gig', '', 'basta blind audition ', NULL, NULL, '2025-10-30 16:01:38', '2300'),
-(14, 1, 'Taga salo ng mga luha ko', 'Full-Time', '', 'basta maging panyo ka', NULL, NULL, '2025-10-30 16:02:01', '200000'),
-(15, 1, 'Patapim', 'Part-Time', '', 'asdasd', NULL, NULL, '2025-10-30 16:12:45', '200000 - 400000'),
-(16, 1, 'Cruk cruk', 'Full-Time', '', 'asdasdsdarw', NULL, NULL, '2025-10-30 16:12:58', '2300');
+(12, 1, 'Willie Dancer', 'Gig', 'Wowie International Airport ', 'sayw lang', NULL, NULL, '2025-10-30 15:57:55', '10'),
+(13, 1, 'Dancer sa The Voice Kid', 'Gig', 'Wowie International Airport ', 'basta blind audition ', NULL, NULL, '2025-10-30 16:01:38', '2300'),
+(14, 1, 'Taga salo ng mga luha ko', 'Full-Time', 'Wowie International Airport ', 'basta maging panyo ka', NULL, NULL, '2025-10-30 16:02:01', '200000'),
+(15, 1, 'Patapim', 'Part-Time', 'Wowie International Airport ', 'asdasd', NULL, NULL, '2025-10-30 16:12:45', '200000 - 400000'),
+(16, 1, 'Cruk cruk', 'Full-Time', 'Wowie International Airport ', 'asdasdsdarw', NULL, NULL, '2025-10-30 16:12:58', '2300'),
+(17, 14, 'Japanese Model', 'Full-Time', '', 'dapat sexy', NULL, NULL, '2025-11-02 02:20:45', '20000'),
+(18, 1, 'Taga sampay', 'Gig', 'Wowie International Airport', 'uwu', NULL, NULL, '2025-11-02 02:29:16', '50000');
 
 -- --------------------------------------------------------
 
@@ -196,9 +197,9 @@ CREATE TABLE `job_seekers` (
 
 INSERT INTO `job_seekers` (`id`, `user_id`, `full_name`, `age`, `gender`, `contact_no`, `profile_picture`, `resume_path`) VALUES
 (1, 4, NULL, 21, 'Female', '09123456744', 'uploads/profile_pictures/1761841831_b1594d4c3d1ed9d4fd89.jpg', 'uploads/resumes/1761841844_f54f513bb0730bb2353c.pdf'),
-(2, 6, NULL, 50, 'Female', '09123456780', NULL, 'uploads/resumes/1761819460_783e660cec28283cd198.docx'),
 (3, 10, NULL, 21, 'Female', '09123456780', 'uploads/profile_pictures/1761824701_17df0926dc03e9e21802.jpg', NULL),
-(4, 4, NULL, 21, 'Female', '09123456745', '/public/uploads/profile_pics/1761820147_ba11cdbfe68215f5ec93.jpg', 'uploads/resumes/1761841241_188f322164eb21f6e0c0.pdf');
+(4, 4, NULL, 21, 'Female', '09123456745', '/public/uploads/profile_pics/1761820147_ba11cdbfe68215f5ec93.jpg', 'uploads/resumes/1761841241_188f322164eb21f6e0c0.pdf'),
+(5, 13, NULL, 99, 'Female', '09123456780', 'uploads/profile_pictures/1762049945_af5ed5c3784ab2742598.jpg', 'uploads/resumes/1762049953_7459b6efa655bf56b874.pdf');
 
 -- --------------------------------------------------------
 
@@ -228,7 +229,8 @@ INSERT INTO `messages` (`id`, `job_id`, `sender_id`, `receiver_id`, `message`, `
 (6, 6, 1, 4, 'hey', '2025-11-01 03:55:07'),
 (7, 6, 1, 4, 'hey hey', '2025-11-01 04:02:20'),
 (8, 6, 1, 4, 'hey so umm sorry we already have someone for the position', '2025-11-01 04:05:44'),
-(9, 6, 1, 6, 'congrats you are hired', '2025-11-01 05:33:43');
+(9, 6, 1, 6, 'congrats you are hired', '2025-11-01 05:33:43'),
+(10, 12, 1, 4, 'galing galing', '2025-11-02 02:30:19');
 
 -- --------------------------------------------------------
 
@@ -254,9 +256,10 @@ INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `role`, `created_at
 (2, 'staff', 'staff@gmail.com', '$2y$10$jEQGeUNU2DQ2ikkwXtg6Tu2DgCvei9jn0qMagGmJo7s3matTNKWdG', 'employer', '2025-10-26 12:10:46'),
 (3, 'Kento Yamazaki', 'yamaken@gmail.com', '$2y$10$kQMkQXsw5E0lSTyim54pAOR7Rj4k0HbGA5/koK47.cSDW6eDVWKtO', 'employer', '2025-10-26 13:02:50'),
 (4, 'Casey Pangilinan Dellamas', 'casey@gmail.com', '$2y$10$xT4d44FfsQKwB9AohuQ2H.kYHeVFoed.hLUQ02CAvaP01iAICNh7C', 'job_seeker', '2025-10-26 13:04:14'),
-(6, 'Eunice Jayce De Vero', 'euni@gmail.com', '$2y$10$vKKBkBzYASIxY1CbrVjgPu/k6VmmR1a.Z999CsaU6mIlaYk91zVZW', 'job_seeker', '2025-10-26 13:16:52'),
 (9, 'Yuzuha Usagi', 'usagi@gmail.com', '$2y$10$yLRs4AGZpUcyvKj84jeSkOeJAuW5Ec/YRXsOMif0cOAOFGlF8yPe6', 'employer', '2025-10-29 12:32:12'),
-(10, 'jayce', 'jayce@gmail.com', '$2y$10$ZSNVm3arb6LllR7THDK8P.tkUygRERnJXCNmixTqc1FK0TKnx3b4u', 'job_seeker', '2025-10-29 14:07:36');
+(10, 'jayce', 'jayce@gmail.com', '$2y$10$ZSNVm3arb6LllR7THDK8P.tkUygRERnJXCNmixTqc1FK0TKnx3b4u', 'job_seeker', '2025-10-29 14:07:36'),
+(13, 'Eunice Jayce De Vero', 'eun@gmail.com', '$2y$10$nsX3Tw8MLjFG21UmHTSyYOjSG9eYwnM9w2JHtHdU7ewn6lPlGw1JG', 'job_seeker', '2025-11-02 02:18:50'),
+(14, 'Eunice Jayce De Vero', 'eunice@gmail.com', '$2y$10$TVQrHsU8VFTDqwcU7yvxwe4trxiI5FSDkVc5CQVxS2hGa8I196ctG', 'employer', '2025-11-02 02:20:03');
 
 --
 -- Indexes for dumped tables
@@ -345,7 +348,7 @@ ALTER TABLE `companies`
 -- AUTO_INCREMENT for table `employers`
 --
 ALTER TABLE `employers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jobseekers`
@@ -363,25 +366,25 @@ ALTER TABLE `job_applications`
 -- AUTO_INCREMENT for table `job_posts`
 --
 ALTER TABLE `job_posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `job_seekers`
 --
 ALTER TABLE `job_seekers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

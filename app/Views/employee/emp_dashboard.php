@@ -166,10 +166,10 @@ body {
   <div class="container">
     <img src="<?= base_url('imgs/logo.png') ?>" alt="JobMatch Logo" class="logo-img">
     <div class="ms-auto">
-      <a href="<?= site_url('emp_dashboard') ?>" class="nav-link active d-inline">Dashboard</a>
-      <a href="<?= site_url('emp_find_jobs') ?>" class="nav-link d-inline">Find Jobs</a>
-      <a href="<?= site_url('emp_profile') ?>" class="nav-link d-inline">Profile</a>
-      <a href="<?= site_url('login') ?>" class="nav-link d-inline btn-secondary" id="logoutBtn">Log Out</a>
+      <a href="<?= base_url('emp_dashboard') ?>" class="nav-link active d-inline">Dashboard</a>
+      <a href="<?= base_url('emp_find_jobs') ?>" class="nav-link d-inline">Find Jobs</a>
+      <a href="<?= base_url('emp_profile') ?>" class="nav-link d-inline">Profile</a>
+      <a href="<?= base_url('login') ?>" class="nav-link d-inline btn-secondary" id="logoutBtn">Log Out</a>
     </div>
   </div>
 </nav>
@@ -180,7 +180,7 @@ body {
     <div class="welcome-section">
       <h2>Welcome <?= esc(session('full_name')) ?>!</h2>
       <p>Discover jobs, connect with top companies, and explore talent opportunities.</p>
-      <a href="<?= site_url('emp_find_jobs') ?>" class="btn-apply btn-sm mt-2">Explore</a>
+      <a href="<?= base_url('emp_find_jobs') ?>" class="btn-apply btn-sm mt-2">Explore</a>
     </div>
   </div>
 
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const confirmBtn = document.getElementById("confirmLogoutBtn");
   if (confirmBtn) {
     confirmBtn.addEventListener("click", function() {
-      window.location.href = "<?= site_url('logout') ?>";
+      window.location.href = "<?= base_url('logout') ?>";
     });
   }
 });

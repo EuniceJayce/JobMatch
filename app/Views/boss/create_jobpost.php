@@ -110,7 +110,7 @@ body {
       <div class="input-group">
         <span class="input-group-text bg-white"><i class="bi bi-building"></i></span>
         <input type="text" name="company_name" class="form-control"
-       value="<?php echo htmlspecialchars($company_name); ?>" readonly>
+        value="<?= esc(session()->get('company_name')) ?>"  readonly>
 
       </div>
     </div>

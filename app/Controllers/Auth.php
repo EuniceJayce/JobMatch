@@ -21,68 +21,103 @@ class Auth extends Controller
 
     // ✅ LOGIN LOGIC
     public function login()
-    {
-        $db = Database::connect();
-        $session = session();
-    
+{
+    $db = Database::connect();
+    $session = session();
 
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
 
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+    $user = $db->table('users')->where('email', $email)->get()->getRow();
 
-        // Fetch user by email
-        $user = $db->table('users')->where('email', $email)->get()->getRow();
+    if ($user && password_verify($password, $user->password)) {
+        // ✅ Store basic session info
+        $sessionData = [
+            'user_id'    => $user->id,
+            'role'       => $user->role,
+            'full_name'  => $user->full_name,
+            'isLoggedIn' => true,
+        ];
 
-        if ($user && password_verify($password, $user->password)) {
-            // ✅ Set session
-            $session->set([
-                'user_id'    => $user->id,
-                'role'       => $user->role,
-                'full_name'  => $user->full_name,
-                'isLoggedIn' => true,
-            ]);
-
-            // ✅ Redirect based on role
-            if ($user->role === 'employer') {
-                return redirect()->to(site_url('boss_dashboard'));
-            } elseif ($user->role === 'job_seeker') {
-                return redirect()->to(site_url('emp_dashboard'));
+        // ✅ If employer, get company_name from employers table
+        if ($user->role === 'employer') {
+            $employer = $db->table('employers')->where('user_id', $user->id)->get()->getRow();
+            if ($employer) {
+                $sessionData['company_name'] = $employer->company_name;
             }
         }
 
-        // ❌ Invalid credentials
-        return redirect()->back()->with('error', 'Invalid email or password.');
-    }
+        $session->set($sessionData);
 
-    // ✅ REGISTRATION LOGIC
-    public function register()
-    {
-        $db = Database::connect();
-
-        $data = [
-            'full_name' => $this->request->getPost('full_name'),
-            'email'     => $this->request->getPost('email'),
-            'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
-            'role'      => $this->request->getPost('role'),
-        ];
-
-        $db->table('users')->insert($data);
-        $user_id = $db->insertID();
-
-        $session = session();
-        $session->set([
-            'user_id'    => $user_id,
-            'role'       => $data['role'],
-            'full_name'  => $data['full_name'],
-            'isLoggedIn' => true,
-        ]);
-
-        if ($data['role'] === 'employer') {
+        // ✅ Redirect
+        if ($user->role === 'employer') {
             return redirect()->to(site_url('boss_dashboard'));
-        } else {
+        } elseif ($user->role === 'job_seeker') {
             return redirect()->to(site_url('emp_dashboard'));
         }
     }
+
+    return redirect()->back()->with('error', 'Invalid email or password.');
+}
+
+
+    // ✅ REGISTRATION LOGIC
+public function register()
+{
+    $db = \Config\Database::connect();
+
+    $role = $this->request->getPost('role');
+
+    // Insert into users table
+    $userData = [
+        'full_name' => $this->request->getPost('full_name'),
+        'email'     => $this->request->getPost('email'),
+        'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+        'role'      => $role,
+    ];
+
+    $db->table('users')->insert($userData);
+    $user_id = $db->insertID();
+
+    // ✅ If Job Seeker, insert to job_seekers table
+    if ($role === 'job_seeker') {
+        $jobSeekerData = [
+            'user_id'     => $user_id,
+            'age'         => $this->request->getPost('age'),
+            'gender'      => $this->request->getPost('gender'),
+            'contact_no'  => $this->request->getPost('job_contact'),
+        ];
+        $db->table('job_seekers')->insert($jobSeekerData);
+    }
+
+    // ✅ If Employer, insert to employers table
+    if ($role === 'employer') {
+        $employerData = [
+            'user_id'      => $user_id,
+            'company_name' => $this->request->getPost('company_name'),
+            'industry'     => $this->request->getPost('industry'),
+            'contact_no'   => $this->request->getPost('emp_contact'),
+        ];
+        $db->table('employers')->insert($employerData);
+    }
+
+    // ✅ Create session
+    $session = session();
+    $session->set([
+        'user_id'    => $user_id,
+        'role'       => $role,
+        'full_name'  => $userData['full_name'],
+        'isLoggedIn' => true,
+    ]);
+
+    // Redirect by role
+    if ($role === 'employer') {
+        return redirect()->to(site_url('boss_dashboard'));
+    } else {
+        return redirect()->to(site_url('emp_dashboard'));
+    }
+}
+
 
     // ✅ EMPLOYER DASHBOARD
     public function boss_dashboard()

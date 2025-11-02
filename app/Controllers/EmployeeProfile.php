@@ -23,7 +23,7 @@ class EmployeeProfile extends Controller
 
         $emp = $userModel
             ->select('users.id AS user_id, users.full_name, users.email, job_seekers.id AS seeker_id, job_seekers.age, job_seekers.gender, job_seekers.contact_no, job_seekers.profile_picture, job_seekers.resume_path')
-            ->join('job_seekers', 'users.id = job_seekers.user_id')
+            ->join('job_seekers', 'users.id = job_seekers.user_id', 'left')
             ->where('users.id', $user_id)
             ->first();
 
